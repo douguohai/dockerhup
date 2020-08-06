@@ -1,0 +1,47 @@
+# yaml 配置实例
+version: '3'
+services:
+  hadoop-master:
+   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-master:v1
+   container_name: hadoop-master
+   ports:
+    - "50070:50070"
+    - "8088:8088"
+   networks:
+    mynetwork:
+     ipv4_address: 199.18.0.2
+   environment:
+    HOSTNAME: hadoop-master
+   depends_on:
+    - hadoop-slave3
+    - hadoop-slave4
+    - hadoop-slave5
+  hadoop-slave3:
+   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-slave:v1
+   container_name: hadoop-slave3
+   networks:
+    mynetwork:
+     ipv4_address: 199.18.0.3
+   environment:
+    HOSTNAME: hadoop-slave3
+  hadoop-slave4:
+   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-slave:v1
+   container_name: hadoop-slave4
+   networks:
+    mynetwork:
+     ipv4_address: 199.18.0.4
+   environment:
+    HOSTNAME: hadoop-slave4
+  hadoop-slave5:
+   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-slave:v1
+   container_name: hadoop-slave5
+   networks:
+    mynetwork:
+     ipv4_address: 199.18.0.5
+   environment:
+    HOSTNAME: hadoop-slave5
+networks:
+ mynetwork:
+  ipam:
+   config:
+    - subnet: 199.18.0.0/16

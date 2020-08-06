@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: es-kinaba-pv
+spec:
+  capacity:
+    storage: 30Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    path: "/nfs/data/es-kinaba-pv"
+    server: 192.168.10.231
