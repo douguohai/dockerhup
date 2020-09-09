@@ -1,25 +1,12 @@
-From registry.cn-beijing.aliyuncs.com/douguohai/centos8:v2
+From registry.cn-beijing.aliyuncs.com/douguohai/centos8-jdk8:v2
 
 MAINTAINER douguohai <douguohai@gmail.com>
 
 WORKDIR /root
 
-ENV JAVA_HOME=/usr/local/jdk1.8.0_221
-
-ENV PATH=${PATH}:${JAVA_HOME}/bin:
-
 # 下载jdk源码并设置环境变量
-RUN wget https://code.aliyun.com/douguohai/sourcepack/raw/6414d2419c9f7c01648eccafa19de265090162fd/jdk-8u221-linux-x64.tar.gz  \
-&& tar -xvf /root/jdk-8u221-linux-x64.tar.gz -C /usr/local/ && rm -rf /root/jdk-8u221-linux-x64.tar.gz \
-&& echo "export JAVA_HOME=${JAVA_HOME}" >>/etc/profile && echo "export PATH=${PATH}:${JAVA_HOME}/bin:">>/etc/profile \
-&& yum -y install fontconfig
-
-COPY simsun.ttc /usr/share/fonts/
-
-RUN fc-cache
-
-
-
-
+RUN yum -y install fontconfig \
+&& wget https://code.aliyun.com/douguohai/sourcepack/raw/629254bc7bbbbaa3a89f99129a6b74a5da6c44c2/fonts/simsun.ttc  \
+&& cp /root/simsun.ttc /usr/share/fonts/ && fc-cache
 
 CMD ['bash']
