@@ -1,37 +1,41 @@
 # yaml 配置实例
 version: '3'
 services:
-  hadoop-master:
-   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-master:v1
+  zookeeper_2:
+   build:
+    context: .
+    dockerfile: Dockerfile
    container_name: zookeeper_2
    ports:
-    - "50070:50070"
-    - "8088:8088"
+    - "2181:2181"
    networks:
     zookeeper_network:
      ipv4_address: 199.18.0.2
    environment:
     HOSTNAME: zookeeper_2
-   depends_on:
-    - hadoop-slave3
-    - hadoop-slave4
-    - hadoop-slave5
-  hadoop-slave3:
-   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-slave:v1
+    DATANODE: 2
+  zookeeper_3:
+   build:
+    context: .
+    dockerfile: Dockerfile
    container_name: zookeeper_3
    networks:
     zookeeper_network:
      ipv4_address: 199.18.0.3
    environment:
     HOSTNAME: zookeeper_3
-  hadoop-slave4:
-   image: registry.cn-beijing.aliyuncs.com/douguohai/hadoop-distributed-slave:v1
+    DATANODE: 3
+  zookeeper_4:
+   build:
+    context: .
+    dockerfile: Dockerfile
    container_name: zookeeper_4
    networks:
     zookeeper_network:
      ipv4_address: 199.18.0.4
    environment:
     HOSTNAME: zookeeper_4
+    DATANODE: 4
 networks:
  zookeeper_network:
   ipam:
