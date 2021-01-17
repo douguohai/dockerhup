@@ -1,6 +1,6 @@
 FROM registry.cn-beijing.aliyuncs.com/douguohai/centos8-jdk8:v2
 
-MAINTAINER douguohai <douguohai@gmail.com>
+LABEL MAINTAINER="douguohai <douguohai@gmail.com>"
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
